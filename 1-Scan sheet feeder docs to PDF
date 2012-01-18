@@ -3,7 +3,7 @@
 NOW=$(date +%s)
 RES=300
 SRC=ADF
-MODE=Gray
+MODE=Color     #Gray|Color|Lineart(?)
 TYPE=tiff    
 NEWTYPE=jpeg
 FINTYPE=pdf
