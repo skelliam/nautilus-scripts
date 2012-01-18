@@ -20,8 +20,8 @@ for fullfilename in *.$TYPE  #loop through all the files
   origname=$(basename $fullfilename)
   compressedname=$(echo $origname | sed -e "s/\.$TYPE/\.$NEWTYPE/g")
   pdfname=$(echo $origname | sed -e "s/\.$TYPE/\.$FINTYPE/g")
-  #tiff to jpeg
-  convert $origname -transparent-color \#FFFFFF00 $compressedname    
+  #tiff to jpeg, trim away anything that might be missing
+  convert -trim $origname $compressedname    
   convert $compressedname $pdfname
 
   #if the pdf file exists get rid of the tiff file and the jpeg file
