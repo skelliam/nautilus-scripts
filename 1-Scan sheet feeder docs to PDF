@@ -7,6 +7,7 @@ MODE=Gray
 TYPE=tiff    
 NEWTYPE=jpeg
 FINTYPE=pdf
+QUALITY=35
 
 cd $NAUTILUS_SCRIPT_CURRENT_URI
 
@@ -21,7 +22,7 @@ for fullfilename in *.$TYPE  #loop through all the files
   compressedname=$(echo $origname | sed -e "s/\.$TYPE/\.$NEWTYPE/g")
   pdfname=$(echo $origname | sed -e "s/\.$TYPE/\.$FINTYPE/g")
   #tiff to jpeg, trim away anything that might be missing
-  convert -trim $origname $compressedname    
+  convert -trim -quality $QUALITY $origname $compressedname    
   convert $compressedname $pdfname
 
   #if the pdf file exists get rid of the tiff file and the jpeg file
