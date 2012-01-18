@@ -43,7 +43,7 @@ filevers = {}
 for file in myfiles:
    basename = os.path.basename(file)
    dirname = os.path.dirname(file)
-   m = re.match('scan(?P<time>\d+)-(?P<num>\d)\.pdf', basename) 
+   m = re.match('scan(?P<time>\d+)-(?P<num>\d+)\.pdf', basename) 
    time = int(m.group('time'))
    num = int(m.group('num'))
    filevers[time] = filevers.setdefault(time, 0) + 1
