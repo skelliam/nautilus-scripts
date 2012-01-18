@@ -8,7 +8,11 @@ do
   if [ -f "$file" ]; then
 	base=${file%.*}
 	ext=${file##*.}
-	if [ "$ext" == "pdf" ]; then
+	#if [ "$ext" == "pdf" ]; then
+	#    PDFARGUMENTS="$PDFARGUMENTS \"$file\""
+	#    pdfdir=`dirname "$file"`
+	#fi
+	if [ "$ext" == "jpeg" ]; then
 	    PDFARGUMENTS="$PDFARGUMENTS \"$file\""
 	    pdfdir=`dirname "$file"`
 	fi
@@ -16,5 +20,6 @@ do
 done
 if [ -n "$PDFARGUMENTS" ]; then
     cd "$pdfdir"
-    eval /usr/bin/pdfjoin $PDFARGUMENTS
+    #eval /usr/bin/pdfjoin $PDFARGUMENTS
+    eval /usr/bin/convert $PDFARGUMENTS $base.pdf
 fi
