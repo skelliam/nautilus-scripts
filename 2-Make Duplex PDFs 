@@ -69,7 +69,7 @@ evenpages = num
 for i in range(num):
    firstfile = dirname+"/scan%d-%d.pdf" %(groups[0], oddpages)
    secondfile = dirname+"/scan%d-%d.pdf" %(groups[1], evenpages)
-   finalfile = dirname+"/scan%d-%d-%d.pdf" %(groups[0], oddpages, evenpages)
+   finalfile = dirname+"/dplx-scan%d-%02d-%02d.pdf" %(groups[0], oddpages, evenpages)
    print firstfile, secondfile, finalfile
    os.system("pdftk %s %s cat output %s" %(firstfile, secondfile, finalfile))
    oddpages += 1
