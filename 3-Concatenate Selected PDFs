@@ -126,11 +126,13 @@ def loggerSetup():
    sl = StreamToLogger(stderr_logger, logging.ERROR)
    sys.stderr = sl
 
+def now():
+   return int( time() )
+
 def main():
    loggerSetup()
 
    pdf_files=""
-   now = int( time() )
    files = os.getenv('NAUTILUS_SCRIPT_SELECTED_FILE_PATHS')
    myfiles = files.split()
    
@@ -145,14 +147,14 @@ def main():
    number_of_pdf_files = len(pdf_files.split())
 
    if (number_of_pdf_files > 1):
-      auto_name = 'cat' + str(now) + '.pdf'
+      auto_name = 'cat' + str(now()) + '.pdf'
       os.system("pdftk %s cat output %s" %(pdf_files, auto_name))
 
       msg = "Concatenated %d pdf files.\nRename output file?" %(number_of_pdf_files)
       ans = getDialogMessage(msg, auto_name)
       if ((ans != gtk.RESPONSE_NO) and (ans != None)):
          if os.path.exists(ans):
-            ans += str(now)
+            ans += str(now())
          os.rename(auto_name, ans)
          
       ans = infoMessage("Delete orignals?")
