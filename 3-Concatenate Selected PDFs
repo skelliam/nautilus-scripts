@@ -151,7 +151,9 @@ def main():
       msg = "Concatenated %d pdf files.\nRename output file?" %(number_of_pdf_files)
       ans = getDialogMessage(msg, auto_name)
       if ((ans != gtk.RESPONSE_NO) and (ans != None)):
-         os.system("mv %s %s" %(auto_name, ans))
+         if os.path.exists(ans):
+            ans += str(now)
+         os.rename(auto_name, ans)
          
       ans = infoMessage("Delete orignals?")
       if (ans == gtk.RESPONSE_YES):
