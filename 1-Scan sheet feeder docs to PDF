@@ -16,7 +16,7 @@ echo scan$NOW-%d.$TYPE
 #scanadf --no-overwrite --mode $MODE --resolution $RES --source $SRC -o scan$NOW-%d.$TYPE
 scanimage --batch=scan$NOW-%d.$TYPE --progress --format=$TYPE --mode $MODE --resolution $RES --source $SRC
 
-for fullfilename in *.$TYPE  #loop through all the files
+for fullfilename in scan$NOW-*.$TYPE  #loop through all the files
   do
   origname=$(basename $fullfilename)
   compressedname=$(echo $origname | sed -e "s/\.$TYPE/\.$NEWTYPE/g")
