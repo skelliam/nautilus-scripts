@@ -1,0 +1,40 @@
+#!/bin/bash
+
+NOW=$(date +%s)
+RES=1200        #75|100|200|300|600|1200|2400|4800dpi
+SRC=Flatbed    #Flatbed|ADF
+MODE=Color     #Gray|Color|Lineart(?)
+TIFFTYPE=tiff
+JPGTYPE=jpg
+QUALITY=90
+HEIGHT=101.6   #4" is 101.6 mm (default 215.9)
+WIDTH=152.4    #6" is 152.4 mm (default 297.011)
+
+#cd $NAUTILUS_SCRIPT_CURRENT_URI
+
+echo scan$NOW-%d.$TIFFTYPE
+
+#!!! --batch-count=1 for the Flatbed
+#!!! I think this is a bug; if you don't specify batch-count=1, it is waiting for the scanner 
+#!!! to scan another image.
+scanimage -x $WIDTH -y $HEIGHT --batch-count=1 --batch=scan$NOW-%d.$TIFFTYPE --progress --format=$TIFFTYPE --mode $MODE --resolution $RES --source $SRC
+
+#loop through all the files
+for f in *.$TIFFTYPE
+do
+  tiffname=$(basename $f)
+
+  #replace tiff with jpg in the filename
+  jpgname=$(echo $tiffname | sed -e "s/\.$TIFFTYPE/\.$JPGTYPE/g")  
+
+  #echo Debug files: $f $tiffname $jpgname
+
+  #tiff to jpeg, trim away anything that might be missing
+  convert -trim -quality $QUALITY $tiffname $jpgname    
+
+  #if the jpg file exists get rid of the tiff file 
+  if [ -f "$jpgname" ]; then
+     rm $tiffname
+     echo Removed $TIFFTYPE file
+  fi
+done
