@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 import pygtk
 pygtk.require('2.0')
 import gtk
@@ -54,12 +54,16 @@ def main():
    mydir = os.getenv('NAUTILUS_SCRIPT_CURRENT_URI')
    files = os.getenv('NAUTILUS_SCRIPT_SELECTED_FILE_PATHS')
    myfiles = files.split()
+   print myfiles
    filevers = {}
 
 
    for file in myfiles:
       basename = os.path.basename(file)
       dirname = os.path.dirname(file)
+      #Thunar workaround, if the first character is an apostrophe, dump it
+      if (dirname[0]=="'"):
+          dirname=dirname[1:]
       m = re.match('(?P<prefix>rotate-scan|scan)(?P<time>\d+)-(?P<num>\d+)\.pdf', basename)
       if (m != None):
          prefix = m.group('prefix')
