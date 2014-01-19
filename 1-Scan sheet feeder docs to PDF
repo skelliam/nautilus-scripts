@@ -14,7 +14,7 @@ cd $NAUTILUS_SCRIPT_CURRENT_URI
 echo scan$NOW-%d.$TYPE
 
 #scanadf --no-overwrite --mode $MODE --resolution $RES --source $SRC -o scan$NOW-%d.$TYPE
-scanimage --batch=scan$NOW-%d.$TYPE --progress --format=$TYPE --mode $MODE --resolution $RES --source $SRC
+scanimage --batch=scan$NOW-%d.$TYPE --progress --format=$TYPE --mode $MODE --source $SRC --resolution $RES
 
 for fullfilename in scan$NOW-*.$TYPE  #loop through all the files
   do
