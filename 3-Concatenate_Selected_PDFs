@@ -135,7 +135,6 @@ def main():
    pdf_files=""
    files = os.getenv('NAUTILUS_SCRIPT_SELECTED_FILE_PATHS')
    myfiles = files.split()
-   print myfiles
    
    for file in myfiles:
       #get rid of single quotes if they exist (Thunar workaround) 
@@ -149,10 +148,6 @@ def main():
          pdf_files += (base + " ")
 
    number_of_pdf_files = len(pdf_files.split())
-
-   print "Here"
-
-   print pdf_files
 
    if (number_of_pdf_files > 1):
       auto_name = 'cat' + str(now()) + '.pdf'
