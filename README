@@ -1,0 +1,7 @@
+dependencies:
+
+imagemagick
+hplip
+bash
+python
+pdftk
