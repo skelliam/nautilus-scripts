@@ -7,7 +7,7 @@ MODE=Color     #Gray|Color|Lineart(?)
 TYPE=tiff    
 NEWTYPE=jpeg
 FINTYPE=pdf
-QUALITY=35
+QUALITY=75
 
 cd $NAUTILUS_SCRIPT_CURRENT_URI
 
