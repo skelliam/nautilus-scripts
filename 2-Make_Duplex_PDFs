@@ -59,11 +59,12 @@ def main():
 
 
    for file in myfiles:
+      #get rid of single quotes if they exist (Thunar workaround) 
+      if file.startswith("'") and file.endswith("'"):
+          file = file[1:-1]       
       basename = os.path.basename(file)
       dirname = os.path.dirname(file)
-      #Thunar workaround, if the first character is an apostrophe, dump it
-      if (dirname[0]=="'"):
-          dirname=dirname[1:]
+
       m = re.match('(?P<prefix>rotate-scan|scan)(?P<time>\d+)-(?P<num>\d+)\.pdf', basename)
       if (m != None):
          prefix = m.group('prefix')

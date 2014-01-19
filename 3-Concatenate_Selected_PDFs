@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 
 import pygtk
 pygtk.require('2.0')
@@ -135,8 +135,12 @@ def main():
    pdf_files=""
    files = os.getenv('NAUTILUS_SCRIPT_SELECTED_FILE_PATHS')
    myfiles = files.split()
+   print myfiles
    
    for file in myfiles:
+      #get rid of single quotes if they exist (Thunar workaround) 
+      if file.startswith("'") and file.endswith("'"):
+          file = file[1:-1]
       base = os.path.basename(file)
       path, ext = os.path.splitext(file)
       dirname = os.path.dirname(file)
@@ -145,6 +149,10 @@ def main():
          pdf_files += (base + " ")
 
    number_of_pdf_files = len(pdf_files.split())
+
+   print "Here"
+
+   print pdf_files
 
    if (number_of_pdf_files > 1):
       auto_name = 'cat' + str(now()) + '.pdf'
