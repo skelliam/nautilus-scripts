@@ -27,8 +27,8 @@ for fullfilename in scan$NOW-*.$TYPE  #loop through all the files
 
   #if the pdf file exists get rid of the tiff file and the jpeg file
   if [ -f "$compressedname" ]; then
-     #rm $origname
-     #rm $compressedname     
+     rm $origname
+     rm $compressedname     
      echo Removed $TYPE and $NEWTYPE file
   fi
 done
