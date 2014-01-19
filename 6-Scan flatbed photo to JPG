@@ -17,7 +17,7 @@ echo scan$NOW-%d.$TIFFTYPE
 #!!! --batch-count=1 for the Flatbed
 #!!! I think this is a bug; if you don't specify batch-count=1, it is waiting for the scanner 
 #!!! to scan another image.
-scanimage -x $WIDTH -y $HEIGHT --batch-count=1 --batch=scan$NOW-%d.$TIFFTYPE --progress --format=$TIFFTYPE --mode $MODE --resolution $RES --source $SRC
+scanimage -x $WIDTH -y $HEIGHT --batch-count=1 --batch=scan$NOW-%d.$TIFFTYPE --progress --format=$TIFFTYPE --mode $MODE --source $SRC --resolution $RES
 
 #loop through all the files
 for f in *.$TIFFTYPE
