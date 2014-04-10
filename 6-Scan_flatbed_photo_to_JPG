@@ -1,7 +1,7 @@
 #!/bin/bash
 
 NOW=$(date +%s)
-RES=1200        #75|100|200|300|600|1200|2400|4800dpi
+RES=600        #75|100|200|300|600|1200|2400|4800dpi
 SRC=Flatbed    #Flatbed|ADF
 MODE=Color     #Gray|Color|Lineart(?)
 TIFFTYPE=tiff
@@ -17,7 +17,9 @@ echo scan$NOW-%d.$TIFFTYPE
 #!!! --batch-count=1 for the Flatbed
 #!!! I think this is a bug; if you don't specify batch-count=1, it is waiting for the scanner 
 #!!! to scan another image.
-scanimage -x $WIDTH -y $HEIGHT --batch-count=1 --batch=scan$NOW-%d.$TIFFTYPE --progress --format=$TIFFTYPE --mode $MODE --source $SRC --resolution $RES
+#scanimage -x $WIDTH -y $HEIGHT --batch-count=1 --batch=scan$NOW-%d.$TIFFTYPE --progress --format=$TIFFTYPE --mode $MODE --source $SRC --resolution $RES
+scanimage --batch-count=1 --batch=scan$NOW-%d.$TIFFTYPE --progress --format=$TIFFTYPE --mode $MODE --source $SRC --resolution $RES
+
 
 #loop through all the files
 for f in *.$TIFFTYPE
