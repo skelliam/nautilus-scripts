@@ -133,7 +133,7 @@ def main():
    loggerSetup()
 
    pdf_files=""
-   files = os.getenv('NAUTILUS_SCRIPT_SELECTED_FILE_PATHS')
+   files = os.getenv('NEMO_SCRIPT_SELECTED_FILE_PATHS')
    myfiles = files.split()
    
    for file in myfiles:

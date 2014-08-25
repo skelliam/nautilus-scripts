@@ -51,8 +51,8 @@ def main():
 
    loggerSetup()
 
-   mydir = os.getenv('NAUTILUS_SCRIPT_CURRENT_URI')
-   files = os.getenv('NAUTILUS_SCRIPT_SELECTED_FILE_PATHS')
+   mydir = os.getenv('NEMO_SCRIPT_CURRENT_URI')
+   files = os.getenv('NEMO_SCRIPT_SELECTED_FILE_PATHS')
    myfiles = files.split()
    print myfiles
    filevers = {}
