@@ -154,7 +154,7 @@ def main():
       # +180. L, R, and D make relative adjustments to a page's rota-
       # tion.
       
-      rotate_opt = 'S'
+      rotate_opt = 'south'  #used to be just 'S' but newer pdftk broke this
       outfile = 'rotate-' + pdf_file
       os.system("pdftk %s cat 1-end%s output %s" %(pdf_file, rotate_opt, outfile))
 
