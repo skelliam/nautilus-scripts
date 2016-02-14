@@ -1,27 +1,6 @@
-#!/usr/bin/python
-
-import pygtk
-pygtk.require('2.0')
-import gtk
-import sys, os, logging, re, subprocess
 from time import time
-
-
-#cool logging class from
-#http://www.electricmonk.nl/log/2011/08/14/redirect-stdout-and-stderr-to-a-logger-in-python/
-class StreamToLogger(object):
-   """
-   Fake file-like stream object that redirects writes to a logger instance.
-   """
-   def __init__(self, logger, log_level=logging.INFO):
-      self.logger = logger
-      self.log_level = log_level
-      self.linebuf = ''
- 
-   def write(self, buf):
-      for line in buf.rstrip().splitlines():
-         self.logger.log(self.log_level, line.rstrip())
-
+import gtk
+import logging
 
 class EntryDialog(gtk.MessageDialog):
     def __init__(self, *args, **kwargs):
@@ -56,14 +35,21 @@ class EntryDialog(gtk.MessageDialog):
             text = None
         return text
 
-# This is a function I wrote.  :)
-def getDialogMessage(message, defaultval):
-    dlg = EntryDialog(None, 0, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO,
-                            message, default_value=defaultval)
-    dlg.show_all()
-    rc = dlg.run()
-    dlg.destroy()
-    return rc
+#cool logging class from
+#http://www.electricmonk.nl/log/2011/08/14/redirect-stdout-and-stderr-to-a-logger-in-python/
+class StreamToLogger(object):
+   """
+   Fake file-like stream object that redirects writes to a logger instance.
+   """
+   def __init__(self, logger, log_level=logging.INFO):
+      self.logger = logger
+      self.log_level = log_level
+      self.linebuf = ''
+ 
+   def write(self, buf):
+      for line in buf.rstrip().splitlines():
+         self.logger.log(self.log_level, line.rstrip())
+
 
 # The following message functions were from 
 # License: Creative Commons Attribution-Share Alike 3.0 License
@@ -110,53 +96,23 @@ def simpleInfoMessage( message):
     dlg.destroy()
     return rc
 
-def loggerSetup():
-   logging.basicConfig(
-      level=logging.DEBUG,
-      format='%(asctime)s:%(levelname)s:%(name)s:%(message)s',
-      filename="out.log",
-      filemode='a'
-   )
-
-   stdout_logger = logging.getLogger('STDOUT')
-   sl = StreamToLogger(stdout_logger, logging.INFO)
-   sys.stdout = sl
-    
-   stderr_logger = logging.getLogger('STDERR')
-   sl = StreamToLogger(stderr_logger, logging.ERROR)
-   sys.stderr = sl
-
 def now():
    return int( time() )
 
-def main():
-   loggerSetup()
+#Simple alert script from:
+#http://www.ibm.com/developerworks/linux/library/l-script-linux-desktop-2/index.html
+def alert(msg):
+    """Show a dialog with a simple message."""
+    dialog = gtk.MessageDialog()
+    dialog.set_markup(msg)
+    dialog.run()
 
-   pdf_files=""
-   files = os.getenv('NEMO_SCRIPT_SELECTED_FILE_PATHS')
-   myfiles = files.split()
-   
-   for file in myfiles:
-      base = os.path.basename(file)
-      path, ext = os.path.splitext(file)
-      dirname = os.path.dirname(file)
+# This is a function I wrote.  :)
+def getDialogMessage(message, defaultval):
+    dlg = EntryDialog(None, 0, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO,
+                            message, default_value=defaultval)
+    dlg.show_all()
+    rc = dlg.run()
+    dlg.destroy()
+    return rc
 
-      if (ext == '.pdf'):
-         pdf_files += (base + " ")
-
-   pdf_files = pdf_files.split()
-   number_of_pdf_files = len(pdf_files)
-
-   for pdf_file in pdf_files:
-      # The page rotation setting can cause pdftk to rotate pages and
-      # documents.  Each option sets the page rotation as follows (in
-      # degrees): N: 0, E: 90, S: 180, W: 270, L: -90, R: +90, D:
-      # +180. L, R, and D make relative adjustments to a page's rota-
-      # tion.
-      
-      rotate_opt = 'south'  #used to be just 'S' but newer pdftk broke this
-      outfile = 'rotate-' + pdf_file
-      os.system("pdftk %s cat 1-end%s output %s" %(pdf_file, rotate_opt, outfile))
-
-if __name__ == "__main__":
-    main()
