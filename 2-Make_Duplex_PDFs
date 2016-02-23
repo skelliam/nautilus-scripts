@@ -91,10 +91,9 @@ def main():
       oddpages += 1
       evenpages -= 1
 
+   msg = "Created duplex scans for %d documents.\n\nDelete originals?" %(num)
 
-   alert('Created duplex scans for %d documents' %(num))
-
-   ans = infoMessage("Delete orignals?")
+   ans = infoMessage(msg)
    if (ans == gtk.RESPONSE_YES):
       os.system("rm %s" %(pdf_files))
 
