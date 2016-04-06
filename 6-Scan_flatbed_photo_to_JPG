@@ -10,7 +10,7 @@ QUALITY=90
 HEIGHT=101.6   #4" is 101.6 mm (default 215.9)
 WIDTH=152.4    #6" is 152.4 mm (default 297.011)
 
-#cd $NEMO_SCRIPT_CURRENT_URI
+#cd $NAUTILUS_SCRIPT_CURRENT_URI
 
 echo scan$NOW-%d.$TIFFTYPE
 
